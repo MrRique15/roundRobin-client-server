@@ -2,6 +2,7 @@ from utils.messages import MessagesContainer
 import socket
 import json
 from pprint import pprint
+import time
 message_1 = {
     "id": 1,
     "protocol": "http",
@@ -43,28 +44,28 @@ def client_program():
     messages.add_message(message_3)
 
     content = messages.get_messages()
+    continue_messages = "y"
     print("------------------------------[Inital Data]---------------------------------")
     for indx,message in content.items():
-        print("------------------[Sending]------------------")
-        pprint(f"Sending message [{indx + 1}]:\n {message}")
-        str_message = json.dumps(message)
-        encoded_message = str_message.encode()
-        client_socket.send(encoded_message)
+        dict_message = messages.full_message_process(indx=indx, message_body=message, client_socket=client_socket)
 
-        raw_data = client_socket.recv(1024)  # receive response
+        content[indx].update(dict_message)
 
-        decoded_data = raw_data.decode()
-        dict_data = json.loads(decoded_data)
-        print("------------------[Receiving]------------------")
-        print(f'Message [{indx + 1}] Received from server:\n {dict_data}')  # show in terminal the dict data received
-
-        content[indx].update(dict_data)
-
+    while continue_messages == "y":
+        continue_messages = input("Do you want to send another message? (y/n): ")
+        if continue_messages == "y":
+            message_body = messages.collect_new_message()
+        
+            messages.full_message_process(indx=messages.get_messages_len()-1, message_body=message_body, client_socket=client_socket)
+        
+    print("Finished processing messages...")
     client_socket.close()  # close the connection
 
     print("------------------------------[Processed Data]---------------------------------")
     for indx,message in content.items():
-        pprint(f"Final Processed message [{indx + 1}]: {message}")
+        print("------------------------------------")
+        print(f"Final Processed message [{indx + 1}]:")
+        pprint(message)
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 import socket
 import json
-
+import time
 def s2_socket_s():
     host = socket.gethostname()
     port = 5002
@@ -18,6 +18,7 @@ def s2_socket_s():
         dict_data = json.loads(decoded_data)
 
         print(f"Original data from connected user: {dict_data}")
+        time.sleep(5.764) # simulate processing delay
         dict_data["processedBy"] = "Processed by S2"
         print(f"Processed data: {dict_data}")
 

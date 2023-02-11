@@ -1,6 +1,6 @@
 import socket
 import json
-
+import time
 def s3_socket_s():
     host = socket.gethostname()
     port = 5003
@@ -18,6 +18,7 @@ def s3_socket_s():
         dict_data = json.loads(decoded_data)
 
         print(f"Original data from connected user: {dict_data}")
+        time.sleep(7.463) # simulate processing delay
         dict_data["processedBy"] = "Processed by S3"
         print(f"Processed data: {dict_data}")
 

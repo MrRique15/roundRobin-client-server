@@ -39,6 +39,9 @@ async def main_socket_s():
                 encoded_data = None
             
             conn.send(encoded_data)
+        else:
+            print("Error: data not received")
+            break
 
     conn.close()
     data_processing.close_sockets()
