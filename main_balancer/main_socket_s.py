@@ -3,6 +3,7 @@ import asyncio
 from utils.data_processing import DataProcessing
 from utils.json_processing import message_decoder, message_encoder
 
+
 # Main function to receive connections, verify data and call the right server to process it.
 # receive encoded message in bytes, decode it to json string and convert to python dict
 # for response, it convert a python dict to json string, encode it in bytes and send to client
@@ -17,10 +18,10 @@ async def main_socket_s():
     main_socket.listen(3)
 
     data_processing = DataProcessing(host=host)
-    
-    conn, address = main_socket.accept()  
+
+    conn, address = main_socket.accept()
     print("Connection from: " + str(address))
-    
+
     while True:
         data = conn.recv(1024)
         decoded_data = data.decode()
@@ -28,7 +29,9 @@ async def main_socket_s():
         if dict_data:
             print(f"from connected user [{address}]: {dict_data}")
 
-            processed_data, last_socket = await data_processing.process_data(data=dict_data, last_socket=last_socket)
+            processed_data, last_socket = await data_processing.process_data(
+                data=dict_data, last_socket=last_socket
+            )
 
             print(f"Received from processing server: {processed_data}")
 
@@ -37,7 +40,7 @@ async def main_socket_s():
                 encoded_data = str_message.encode()
             else:
                 encoded_data = None
-            
+
             conn.send(encoded_data)
         else:
             print("Error: data not received")
@@ -46,8 +49,10 @@ async def main_socket_s():
     conn.close()
     data_processing.close_sockets()
 
+
 def main():
     asyncio.run(main_socket_s())
-    
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     main()

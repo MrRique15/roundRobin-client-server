@@ -2,10 +2,10 @@ from utils.json_processing import message_encoder, message_decoder
 import asyncio
 import socket
 
+
 # Main processing unit, responsable to verify and convert data to send to other servers
 # round robin method applied to check what server does it will send to procces data
 class DataProcessing:
-
     s1_socket = None
     s2_socket = None
     s3_socket = None
@@ -20,15 +20,15 @@ class DataProcessing:
         self.s3_socket.connect((host, 5003))
 
     async def generate_response(self, data, used_socket=None) -> dict:
-        str_message = message_encoder(message=data) # transform dict -> str
-        encoded_message = str_message.encode() # encode str -> bytes
+        str_message = message_encoder(message=data)  # transform dict -> str
+        encoded_message = str_message.encode()  # encode str -> bytes
 
         used_socket.send(encoded_message)
         raw_data = used_socket.recv(1024)
 
-        decoded_data = raw_data.decode() # decode bytes -> str
-        dict_data = message_decoder(message=decoded_data) #transform str -> dict
- 
+        decoded_data = raw_data.decode()  # decode bytes -> str
+        dict_data = message_decoder(message=decoded_data)  # transform str -> dict
+
         return dict_data
 
     async def process_data(self, data, last_socket=None):
@@ -37,7 +37,7 @@ class DataProcessing:
         if type(data) != dict:
             print("Wrong message type received, returning...")
             return None, last_socket
-        
+
         if data:
             if data["protocol"] == "http":
                 print("Sending traffic to S1")
@@ -53,7 +53,9 @@ class DataProcessing:
                     used_socket = self.s2_socket
                     last_socket = "S2"
             else:
-                print("Invalid request protocol, exiting connection without response...")
+                print(
+                    "Invalid request protocol, exiting connection without response..."
+                )
                 return None, last_socket
 
             dict_data = await self.generate_response(data=data, used_socket=used_socket)

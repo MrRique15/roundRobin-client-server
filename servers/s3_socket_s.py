@@ -1,6 +1,8 @@
 import socket
 import json
 import time
+
+
 def s3_socket_s():
     host = socket.gethostname()
     port = 5003
@@ -10,7 +12,7 @@ def s3_socket_s():
     server_socket.bind((host, port))
 
     server_socket.listen(1)
-    conn, address = server_socket.accept()  
+    conn, address = server_socket.accept()
     print("Connection from: " + str(address))
     while True:
         raw_data = conn.recv(1024)
@@ -18,7 +20,7 @@ def s3_socket_s():
         dict_data = json.loads(decoded_data)
 
         print(f"Original data from connected user: {dict_data}")
-        time.sleep(7.463) # simulate processing delay
+        time.sleep(7.463)  # simulate processing delay
         dict_data["processedBy"] = "Processed by S3"
         print(f"Processed data: {dict_data}")
 
@@ -28,5 +30,6 @@ def s3_socket_s():
 
     conn.close()  # close the connection
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     s3_socket_s()
