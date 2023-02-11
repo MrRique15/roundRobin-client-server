@@ -68,6 +68,9 @@ def client_program():
                 message_body=message_body,
                 client_socket=client_socket,
             )
+            
+            content = messages.get_messages()
+            content[messages.get_messages_len() - 1].update(dict_message)
 
     print("Finished processing messages...")
     client_socket.close()  # close the connection
