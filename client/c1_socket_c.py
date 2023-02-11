@@ -1,8 +1,6 @@
 from utils.messages import MessagesContainer
 import socket
-import json
 from pprint import pprint
-import time
 message_1 = {
     "id": 1,
     "protocol": "http",
@@ -35,16 +33,17 @@ def client_program():
     host = socket.gethostname()  # as both code is running on same pc, change if server is on another host
     port = 5000  # socket server port number, the exactly port number from the server
     messages = MessagesContainer()
+    continue_messages = "y"
 
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
 
+    # adding inital messages to process
     messages.add_message(message_1)
     messages.add_message(message_2)
     messages.add_message(message_3)
 
     content = messages.get_messages()
-    continue_messages = "y"
     print("------------------------------[Inital Data]---------------------------------")
     for indx,message in content.items():
         dict_message = messages.full_message_process(indx=indx, message_body=message, client_socket=client_socket)
@@ -66,7 +65,6 @@ def client_program():
         print("------------------------------------")
         print(f"Final Processed message [{indx + 1}]:")
         pprint(message)
-
 
 if __name__ == '__main__':
     client_program()
