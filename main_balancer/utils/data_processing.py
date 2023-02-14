@@ -39,7 +39,7 @@ class DataProcessing:
             return None, last_socket
 
         if data:
-            if data["protocol"] == "http":
+            if data["protocol"] == "tcp":
                 print("Sending traffic to S1")
                 used_socket = self.s1_socket
                 last_socket = last_socket

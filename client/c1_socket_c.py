@@ -4,8 +4,8 @@ from pprint import pprint
 
 message_1 = {
     "id": 1,
-    "protocol": "http",
-    "content": "sample message used to test http connection on S1",
+    "protocol": "tcp",
+    "content": "sample message used to test tcp connection on S1",
     "database": "MongoDB",
     "token": "7a1nsç%$9187AnAH864AHjdn*&6snABAP*¨!$53271",
     "usedServerMustBe": "S1",
@@ -15,7 +15,7 @@ message_2 = {
     "id": 2,
     "protocol": "udp",
     "content": "sample message used to test udp connection on S2",
-    "database": "MongoDB",
+    "database": "DynamoDB",
     "token": "7a1nsç%$9187AnAH864AHjdn*&6snABAP*¨!$53271",
     "usedServerMustBe": "S2",
     "processedBy": "Not processed yet",
@@ -24,8 +24,8 @@ message_3 = {
     "id": 3,
     "protocol": "udp",
     "content": "sample message used to test udp connection on S3",
-    "database": "MongoDB",
-    "token": "7a1nsç%$9187AnAH864AHjdn*&6snABAP*¨!$53271",
+    "database": "Postgree",
+    "token": "7a1nsç%$9187AnAH864AHjdn*&6kaGA¨%AbaoAJb625",
     "usedServerMustBe": "S3",
     "processedBy": "Not processed yet",
 }
