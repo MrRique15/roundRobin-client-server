@@ -38,6 +38,3 @@ python c1_socket_c.py
 
 ### Simulation Flow
 The client will automatically send three messages to the servers, which will be distributed using the round-robin logic implemented by the main server. After the processing of these three messages, the client will wait for user input to send new messages.
-
-## License
-This project is licensed under the MIT License - see the LICENSE.md file for details.
