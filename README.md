@@ -5,7 +5,7 @@ This is a Python project that demonstrates how to implement a load balancer usin
 ## Installation
 To run this project, you will need to have Python 3.x installed on your machine. Clone the repository to your local machine using the following command:
 ```
-git clone https://github.com/<username>/<repository>.git
+git clone https://github.com/MrRique15/roundRobin-client-server.git
 ```
 
 It uses only native packages, so you don´t need installing any requirements.
